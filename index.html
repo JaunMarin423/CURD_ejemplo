@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="main.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="appEstudiante" class="container">
+      <!-- Formularion para añadir -->
+      <section class="from">
+        <form action="" class="text-center">
+            <input type="text" v-model="nombre" @keyup.enter="crearEstudiante" class="form-control" placeholder="Nombre">
+            <input type="number" v-model="edad" @keyup.enter="crearEstudiante" name="edad" placeholder="Edad" class="form-control">
+            
+            <!--boton para añadir-->
+
+            <input type="button" value="Añadir" @click="crearEstudiante" class="btn btn-success">
+            
+        </form>
+      </section>
+      <!-- Resultados -->
+      <section class="data">
+          <caption>Estudiante</caption>
+          <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Edad</th>
+                </tr>
+            </thead>
+            <tbody v-for="(estudiante, index) in estudiantes">
+                <td>{{ estudiante.id }}</td>
+                <td>
+                    <span v-if="formActualizar && idActualizar == index">
+                    <!-- Formulario para Actualizar -->
+                    <input type="text" v-model="nombreActualizar" class="form-control">
+                    </span>
+                    <span v-else>
+                        {{ estudiante.nombre }}
+                    </span>
+                </td>
+                <td>
+                    <span v-if="formActualizar && idActualizar == index">
+                        <input type="text" v-model="edadActualizar" class="form-control">
+                    </span>
+                    <span v-else>
+                        {{ estudiante.edad}}
+                    </span>
+                </td>
+                <td>
+                    <span v-if="formActualizar && idActualizar == index">
+                        <button @click="guardarActualizacion(index)" class="btn btn-success">Guardar</button>
+                        
+                    </span>
+                    <span v-else>
+                        <button @click="verFormActualizar(index)" class="btn btn-warning">Actualizar</button>
+                        <button @click="borrarEstudiante(index)" class="btn btn-danger">Borrar</button>
+
+                    </span>
+                </td>
+            </tbody>
+          </table>
+
+      </section>
+    </div>
+  </body>
+</html>
